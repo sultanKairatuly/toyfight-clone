@@ -1,22 +1,6 @@
 <template>
   <div class="container">
-    <h3
-      class="section_title"
-      :class="{
-        showed: isIntersecting,
-        long: isIntersecting,
-      }"
-    >
-      founders
-    </h3>
-    <h1
-      class="title"
-      :class="{
-        showed: isIntersecting,
-      }"
-    >
-      Meet Jonhy & Leigh.
-    </h1>
+    
     <div
       class="leigh"
       :class="{
@@ -77,124 +61,19 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from "vue";
-
-const LeighHoveredInfo = ref(false);
-const JohnyHoveredInfo = ref(false);
-
-const isIntersecting = ref(false);
-
-window.addEventListener("scroll", (e) => {
-  let offset = window.scrollY;
-
-  if (offset >= 1000) {
-    isIntersecting.value = true;
-  } else {
-    isIntersecting.value = false;
-  }
-});
-</script>
+<script setup></script>
 
 <style scoped>
 .container {
-  padding-bottom: 30vw;
-  padding-top: 25vw;
-  transition: 0.3s ease-in-out;
-  background: rgb(33, 79, 198);
+  padding-bottom: 20vw;
+  padding-top: 15vw;
+  background: rgb(255, 217, 72);
   background: linear-gradient(
-    165deg,
-    rgba(21, 68, 192, 1) 30%,
-    rgba(33, 79, 198, 1) 30%
+    25deg,
+    rgba(255, 217, 72, 1) 53%,
+    rgba(255, 212, 45, 1) 53%
   );
   position: relative;
-}
-.section_title {
-  font-size: 11px;
-  padding-bottom: 24px;
-  margin-bottom: 40px;
-  text-transform: uppercase;
-  color: #fff;
-  text-align: center;
-  position: relative;
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.3s ease-in-out;
-}
-
-.section_title::after {
-  content: "";
-  width: 7px;
-  position: absolute;
-  height: 5px;
-  top: 70%;
-  left: 50%;
-  transform: rotate(75deg) translateX(-50%);
-  background-color: #96ffca;
-  display: block;
-  transition: 0.5s ease-in-out;
-  transition-delay: 1.5s;
-}
-.title {
-  font-size: 42px;
-  width: 800px;
-  text-align: center;
-  color: #fff;
-  margin: 21px auto;
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.3s ease-in-out;
-  transition-delay: 0.3s;
-}
-.description {
-  color: #fff;
-  margin: 0 auto;
-  font-size: 16px;
-  text-align: center;
-  width: 580px;
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.3s ease-in-out;
-}
-
-.content-to-hover {
-  width: 15vw;
-  height: 15vw;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 50;
-}
-
-.section_title::after {
-  content: "";
-  width: 7px;
-  position: absolute;
-  height: 1px;
-  top: 70%;
-  left: 50%;
-  float: left;
-  transform: rotate(75deg) translateX(-50%);
-  background-color: #96ffca;
-  display: block;
-  transition: 0.5s ease-in-out;
-  transition-delay: 0.8s;
-}
-
-.long::after {
-  content: "";
-  width: 7px;
-  position: absolute;
-  height: 24px;
-  top: 70%;
-  left: 50%;
-  float: left;
-  transform: rotate(75deg) translateX(-50%);
-  background-color: #96ffca;
-  display: block;
-  transition: 0.5s ease-in-out;
-  transition-delay: 0.8s;
 }
 
 .toy-image {
@@ -210,8 +89,6 @@ window.addEventListener("scroll", (e) => {
   width: fit-content;
   transform: translate(-15px, -15px);
   transition: 0.4s ease-in-out;
-  opacity: 0;
-  visibility: hidden;
   transition-delay: 0.5s;
 }
 
@@ -223,9 +100,7 @@ window.addEventListener("scroll", (e) => {
   left: 5%;
   transform: translate(15px, 15px);
   transition: 0.4s ease-in-out;
-  opacity: 0;
   transition-delay: 0.5s;
-  visibility: hidden;
 }
 
 .info {

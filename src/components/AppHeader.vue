@@ -5,10 +5,11 @@
       v-for="head in headerItems"
       :key="head"
       :class="{
-        hidden: heads.includes(head),
+        hidden: heads.includes(head[0]),
       }"
+      @click="push(head[1], head[0])"
     >
-      {{ head }}
+      {{ head[0] }}
     </div>
     <div
       @click="scrollToTop"
@@ -21,9 +22,20 @@
 </template>
 
 <script setup>
+import { storeToRefs } from "pinia";
 import { ref, reactive } from "vue";
+import { useLinksStore } from "../strores/linksStore";
+import { useRouter } from "vue-router";
 
-const headerItems = reactive(["Intro", "Who", "What", "Work"]);
+const router = useRouter();
+const store = useLinksStore();
+
+const headerItems = reactive([
+  ["Intro", "/"],
+  ["Who", "who"],
+  ["What", "what"],
+  ["Work", "work"],
+]);
 const heads = reactive([]);
 const hidingProcess = ref(false);
 const showingProcess = ref(false);
@@ -79,6 +91,11 @@ const scrollToTop = () => {
     behavior: "smooth",
   });
 };
+
+const push = (link, page) => {
+  store.changeLink(page.toLowerCase());
+  router.push(link);
+};
 </script>
 
 <style scoped>
@@ -89,6 +106,9 @@ const scrollToTop = () => {
   width: 100%;
   align-items: center;
   justify-content: center;
+  background: transparent;
+  padding: 60px 0px 20px 0px;
+  z-index: 100;
 }
 
 .header__item {
@@ -98,6 +118,7 @@ const scrollToTop = () => {
   text-transform: uppercase;
   font-weight: 700;
   transition: 0.4s ease-in-out;
+  cursor: pointer;
 }
 
 .hidden {

@@ -1,27 +1,67 @@
 <template>
   <div
     class="container"
-    :class="{
-      showed: isIntersecting,
+    :style="{
+      backgroundColor: props.backColor,
     }"
     ref="container"
   >
-    <h3 class="section_title">pocket dynamos</h3>
-    <h1 class="title">
-      We're designers, directors, strategists, and awkward dancers.
-    </h1>
-    <div class="description">
-      We have over a decade of experience in the creative industry, producing
-      exciting experiences for brands that are as smart, as they are effective.
+    <div
+      class="content"
+      :style="{
+        backgroundColor: props.backColor,
+        color: dynamicColor,
+      }"
+      :class="{
+        showed: isIntersecting,
+      }"
+    >
+      <h3 class="section_title" ref="title">{{ props.sectionTitle }}</h3>
+      <h1 class="title">
+        {{ props.sectionSubtitle }}
+      </h1>
+      <div class="description">
+        {{ props.sectionDescription }}
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { useLinksStore } from "../strores/linksStore";
 
+const store = useLinksStore();
+const props = defineProps({
+  sectionTitle: {
+    type: String,
+    default: "",
+  },
+  sectionSubtitle: {
+    type: String,
+    default: "",
+  },
+  sectionDescription: {
+    type: String,
+    default: "",
+  },
+  backColor: {
+    type: String,
+    default: "",
+  },
+  lineColor: {
+    type: String,
+    default: "",
+  },
+});
 const isIntersecting = ref(false);
+const isDarkText = ref(false);
 
+if (store.currentLink === "intro") {
+  isDarkText.value = true;
+} else {
+  isDarkText.value = false;
+}
 window.addEventListener("scroll", (e) => {
   let offset = window.scrollY;
 
@@ -33,20 +73,24 @@ window.addEventListener("scroll", (e) => {
     isIntersecting.value = false;
   }
 });
+
+const dynamicColor = computed(() => {
+  return isDarkText.value ? "#373322" : "#fff";
+});
 </script>
 
 <style scoped>
-.container {
+.content {
   opacity: 0;
   visibility: hidden;
   transition: 0.3s ease-in-out;
 }
+
 .section_title {
   font-size: 11px;
   padding-bottom: 24px;
   margin-bottom: 40px;
   text-transform: uppercase;
-  color: #fff;
   text-align: center;
   position: relative;
 }
@@ -68,11 +112,9 @@ window.addEventListener("scroll", (e) => {
   font-size: 42px;
   width: 800px;
   text-align: center;
-  color: #fff;
   margin: 21px auto;
 }
 .description {
-  color: #fff;
   margin: 0 auto;
   font-size: 16px;
   text-align: center;

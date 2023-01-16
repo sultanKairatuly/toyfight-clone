@@ -1,5 +1,10 @@
 <template>
-  <div class="section section-main" :class="{}">
+  <div
+    class="section section-main"
+    :style="{
+      backgroundColor: props.secondaryColor,
+    }"
+  >
     <div
       class="container"
       :class="{
@@ -8,7 +13,7 @@
       }"
     >
       <div class="content">
-        <h1 class="title">Who</h1>
+        <h1 class="title">{{ props.sectionTitle }}</h1>
       </div>
     </div>
     <div
@@ -16,6 +21,7 @@
       :class="{
         hidden: isHiden,
       }"
+      :style="props.backColor"
     ></div>
     <div
       class="arrow_container"
@@ -29,18 +35,34 @@
         <div class="chevron"></div>
       </a>
     </div>
-    <img
+    <!-- <img
       class="big-image"
       :class="{
         hidden: isHiden,
       }"
-      src="https://cdna.artstation.com/p/assets/images/images/007/342/008/large/anna-schmelzer-toyfight-portraits-zbrush-by-anna-schmelzer.jpg?1505457182"
-    />
+      src="../assets/who.png"
+    /> -->
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
+
+const props = defineProps({
+  sectionTitle: {
+    type: String,
+    default: "",
+  },
+  backColor: {
+    type: Object,
+    default: {},
+    required: true,
+  },
+  secondaryColor: {
+    type: String,
+    default: "",
+  },
+});
 const isHiden = ref(false);
 
 const isVisible = ref(false);
@@ -108,13 +130,6 @@ window.addEventListener("scroll", (e) => {
 }
 
 .background {
-  background: rgb(22, 68, 190);
-  background: linear-gradient(
-    180deg,
-    rgba(22, 68, 190, 1) 17%,
-    rgba(15, 50, 176, 1) 65%,
-    rgba(18, 57, 186, 1) 68%
-  );
   position: fixed;
   width: 100%;
   height: 100%;
